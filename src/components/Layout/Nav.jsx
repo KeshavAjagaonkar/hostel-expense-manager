@@ -9,7 +9,7 @@ function Nav() {
     "text-black-600 bg-indigo-50";
 
   return (
-    <nav className="border-b border-gray-200 bg-white">
+    <nav className="sticky top-0 z-50 border-b border-gray-200 bg-white">
   <div className="flex justify-center">
     <div className="max-w-4xl w-full px-6">
       <div className="flex h-14 items-center justify-center gap-15">
