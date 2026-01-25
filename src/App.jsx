@@ -11,8 +11,22 @@ import { computeBalances } from "./utils/computeBalances.js";
 
 
 function App() {
-  const [expenses, setExpenses] = useState([]);
-   const balances = computeBalances(members, expenses);
+  // 1. Source of truth: expenses
+  const [expenses, setExpenses] = useLocalStorage("expenses", []);
+
+  // 2. Simulated identity
+  const [activeUser, setActiveUser] = useState(members[0]);
+
+  // 3. Derived data: balances (NOT stored)
+  const balances = useMemo(() => {
+    return computeBalances(members, expenses);
+  }, [expenses]);
+
+  // 4. Add expense handler
+  function handleAddExpense(expense) {
+    setExpenses(prev => [...prev, expense]);
+  }
+
   return (
     <>
       <BrowserRouter>
