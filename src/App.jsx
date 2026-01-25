@@ -13,7 +13,7 @@ function App() {
   const [expenses, setExpenses] = useLocalStorage("expenses", []);
 
   // 2. Simulated identity
-  const [activeUser, setActiveUser] = useState(members[0]);
+  const [activeUser, setActiveUser] = useState(members[3]);
 
   // 3. Derived data: balances (NOT stored)
   const balances = useMemo(() => {
