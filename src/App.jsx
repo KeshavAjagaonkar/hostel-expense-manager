@@ -1,53 +1,58 @@
-import { useState, useMemo } from "react";
-import { members } from "./data/member";
-import { computeBalances } from "./utils/computeBalances";
-import { useLocalStorage } from "./hooks/useLocalStorage";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { useState } from "react";
+import Nav from "./components/Layout/Nav.jsx";
 
-import Header from "./components/Header";
-import Dashboard from "./components/Dashboard";
-import AddExpense from "./components/AddExpense";
-import Summary from "./components/Summary";
+import Dashboard from "./pages/Dashboard.jsx";
+import Summary from "./pages/Summary.jsx";
+import Settlements from "./pages/Settlements.jsx";
+
+import { members } from "./data/member.js";
+import { computeBalances } from "./utils/computeBalances.js";
+
 
 function App() {
-  // 1. Source of truth: expenses
-  const [expenses, setExpenses] = useLocalStorage("expenses", []);
-
-  // 2. Simulated identity
-  const [activeUser, setActiveUser] = useState(members[0]);
-
-  // 3. Derived data: balances (NOT stored)
-  const balances = useMemo(() => {
-    return computeBalances(members, expenses);
-  }, [expenses]);
-
-  // 4. Add expense handler
-  function handleAddExpense(expense) {
-    setExpenses(prev => [...prev, expense]);
-  }
-
+  const [expenses, setExpenses] = useState([]);
+   const balances = computeBalances(members, expenses);
   return (
     <>
-      <Header
-        members={members}
-        activeUser={activeUser}
-        onChangeUser={setActiveUser}
-      />
+      <BrowserRouter>
+        {/* Persistent navigation */}
+        <Nav />
 
-      <Dashboard
-        balances={balances}
-        expenses={expenses}
-      />
+        {/* Route-level views */}
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <Dashboard
+                members={members}
+                expenses={expenses}
+                setExpenses={setExpenses}
+                balances={balances}
+              />
+            }
+          />
 
-      <AddExpense
-        members={members}
-        activeUser={activeUser}
-        onAddExpense={handleAddExpense}
-      />
+          <Route
+            path="/summary"
+            element={
+              <Summary
+                expenses={expenses}
+                balances={balances}
+              />
+            }
+          />
 
-      <Summary
-        expenses={expenses}
-        balances={balances}
-      />
+          <Route
+            path="/settlements"
+            element={
+              <Settlements
+                balances={balances}
+              />
+            }
+          />
+        </Routes>
+      </BrowserRouter>
     </>
   );
 }
