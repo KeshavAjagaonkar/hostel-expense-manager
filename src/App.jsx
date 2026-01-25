@@ -10,17 +10,14 @@ import { members } from "./data/member.js";
 import { computeBalances } from "./utils/computeBalances.js";
 import { useLocalStorage } from "./hooks/useLocalStorage.js";
 
-
 function App() {
   // 1. Source of truth: expenses
   const [expenses, setExpenses] = useLocalStorage("expenses", []);
-
 
   // 3. Derived data: balances (NOT stored)
   const balances = useMemo(() => {
     return computeBalances(members, expenses);
   }, [expenses]);
-
 
   return (
     <>
@@ -33,29 +30,19 @@ function App() {
           <Route
             path="/"
             element={
-              <Dashboard              
-                setExpenses={setExpenses}
-                balances={balances}
-              />
+              <Dashboard setExpenses={setExpenses} balances={balances} />
             }
           />
 
           <Route
             path="/summary"
-            element={
-              <Summary
-                expenses={expenses}
-                balances={balances}
-              />
-            }
+            element={<Summary expenses={expenses} balances={balances} />}
           />
 
           <Route
             path="/settlements"
             element={
-              <Settlements
-                balances={balances}
-              />
+              <Settlements balances={balances} setExpenses={setExpenses} />
             }
           />
         </Routes>

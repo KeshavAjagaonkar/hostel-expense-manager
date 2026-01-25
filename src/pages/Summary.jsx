@@ -9,7 +9,7 @@ import { getMemberName } from "../utils/getMemberName";
 import { SummaryCard } from "../components/_SummaryComponents/SummaryCard";
 import { ChartSection } from "../components/_SummaryComponents/ChartSection";
 import { BalanceCard } from "../components/_SummaryComponents/BalanceCard";
-
+import { EmptyState } from "../components/_SummaryComponents/EmptyState";
 const Summary = ({ expenses, balances }) => {
   console.log("Props received:", { expenses, balances });
 

@@ -1,5 +1,10 @@
 const totalExpenses_Balance = (expenses, balances) => {
-  const totalExpenses = expenses.reduce(
+  // Filter out settlements so they don't count as spending
+  const actualExpenses = expenses.filter(
+    (exp) => exp.category !== "Settlement",
+  );
+
+  const totalExpenses = actualExpenses.reduce(
     (sum, expense) => sum + expense.amount,
     0,
   );
