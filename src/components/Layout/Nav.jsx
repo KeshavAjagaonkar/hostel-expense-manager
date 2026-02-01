@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { LayoutDashboard, PieChart, Receipt, Wallet } from "lucide-react";
 import clsx from "clsx";
 
@@ -15,7 +15,7 @@ function Nav() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
 
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <div className="p-1 bg-indigo-600 rounded-lg shadow-lg shadow-indigo-500/20">
               <img
               src="/logo.png"
@@ -26,11 +26,11 @@ function Nav() {
             <span className="text-lg font-bold bg-linear-to-r from-white to-slate-400 bg-clip-text text-transparent hidden sm:block">
               RoomSplit
             </span>
-          </div>
+          </Link>
 
           <div className="flex items-center gap-1 sm:gap-4 bg-slate-900/50 p-1.5 rounded-full border border-slate-800/50">
             <NavLink
-              to="/"
+              to="/dashboard"
               end
               className={({ isActive }) =>
                 clsx(linkBase, isActive ? active : inactive)

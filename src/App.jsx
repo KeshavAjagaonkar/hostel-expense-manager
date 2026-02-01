@@ -9,6 +9,7 @@ import Settlements from "./pages/Settlements.jsx";
 import { members } from "./data/member.js";
 import { computeBalances } from "./utils/computeBalances.js";
 import { useLocalStorage } from "./hooks/useLocalStorage.js";
+import Home from "./pages/Home.jsx";
 
 function App() {
   // 1. Source of truth: expenses
@@ -29,6 +30,12 @@ function App() {
         <Routes>
           <Route
             path="/"
+            element={
+              <Home />
+            }
+          />
+          <Route
+            path="/dashboard"
             element={
               <Dashboard setExpenses={setExpenses} balances={balances} />
             }
